@@ -1,0 +1,3 @@
+//info//hello my name is Daniel.
+//info//hello, what is your name.
+//info//is it, Daniel as well?
