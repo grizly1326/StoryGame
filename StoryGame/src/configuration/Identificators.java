@@ -9,14 +9,19 @@ public class Identificators {
 	}
 	public void fill(){
 		//---------------------
-		//1=info(pager-like inforamtion,.....).
-		//2=split(selects a few parameter in the text that are splited by a special character).
-		//3=text(Simple text that has some delay when texting by its length).
-		//4=settings(Here is saved curent number of line, [and progression==list of made choices]).
+		//0=info(pager-like inforamtion,.....).
+		//1=split(selects a few parameter in the text that are splited by a special character).
+		//2=text(Simple text that has some delay when texting by its length).
+		//3=settings(Here is saved curent number of line, [and progression==list of made choices]).
 		//---------------------
 		list.add("Info");
 		list.add("Split");
 		list.add("Text");
 		list.add("Settings");
+	}
+	public void getArray(){
+		for(String a:list){
+			System.out.println(a);
+		}
 	}
 }

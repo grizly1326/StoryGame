@@ -21,32 +21,18 @@ public class ImportFile {
 			e.printStackTrace();			//cannot make a BufferedReader on this file. /ERROR/
 		}
 	}
-	public int numberOfLines(){
-		int counter=0;
-		try {
-			while((br.readLine())!=null) counter++;
-		} catch (IOException e) {
-			e.printStackTrace();					//cannot read line.
-		}
-		return counter;
-	}
-	public void printText(int index){
+	public void importStory(){
 		String line;
 		int counter=0;
 		try {
 			while((line=br.readLine())!=null){
-				if(counter>=index){
-					System.out.println(line);
-				}
+				//System.out.println(counter+", A:"+line);
+				Switching.switcher(line);
+				System.out.println(counter);
 				counter++;
 			}
 		} catch (IOException e) {
-			e.printStackTrace();			//cannot read line.
-		}
-		try {
-			br.close();
-		} catch (IOException e) {
-			e.printStackTrace();			//cannot close reader.
+			e.printStackTrace();					//cannot read line.
 		}
 	}
 
