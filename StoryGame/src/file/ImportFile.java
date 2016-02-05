@@ -23,13 +23,10 @@ public class ImportFile {
 	}
 	public void importStory(){
 		String line;
-		int counter=0;
 		try {
 			while((line=br.readLine())!=null){
 				//System.out.println(counter+", A:"+line);
 				Switching.switcher(line);
-				System.out.println(counter);
-				counter++;
 			}
 		} catch (IOException e) {
 			e.printStackTrace();					//cannot read line.
