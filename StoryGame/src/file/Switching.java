@@ -13,7 +13,7 @@ public class Switching {
 		if(Identificators.list.get(0).equals(split[1])){
 			//info block
 			StoryBlock block=new StoryBlock();
-			block.setType(false);			//sets to a text block.
+			block.setType(2);			//sets to a text block.
 			block.addText(split[2]);
 			StoryArray.addToList(block);
 		}
@@ -21,7 +21,7 @@ public class Switching {
 			String[]splitSelection=split[2].split("/-/");
 			//split
 			StoryBlock block=new StoryBlock();
-			block.setType(true);
+			block.setType(1);
 			block.addPath(splitSelection[0], Integer.parseInt(splitSelection[1]), splitSelection[2], Integer.parseInt(splitSelection[3]));
 			StoryArray.addToList(block);
 			
@@ -35,7 +35,7 @@ public class Switching {
 		if(Identificators.list.get(4).equals(split[1])){
 			//End
 			StoryBlock block= new StoryBlock();
-			block.setEnd(true);
+			block.setType(4);
 			StoryArray.addToList(block);
 		}
 	}

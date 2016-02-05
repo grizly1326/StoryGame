@@ -5,6 +5,12 @@ import java.util.ArrayList;
 public class StoryArray {
 	static ArrayList<StoryBlock>list= new ArrayList<StoryBlock>();
 	static ArrayList<StoryBlock>progress= new ArrayList<StoryBlock>();		//saves the progress in an Array.
+	public static int getProgressSize(){
+		return progress.size();
+	}
+	public static int getListSize(){
+		return list.size();
+	}
 	public static void addToList(StoryBlock block){
 		list.add(block);
 	}

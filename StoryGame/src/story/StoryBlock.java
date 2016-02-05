@@ -1,8 +1,8 @@
 package story;
 
 //===========================================================
-//switcher=true(is a switcher, to indicate is a switch block)
-//switcher=false(is a switcher, to indicate is a text block)
+//type=true(is a type, to indicate is a switch block)
+//type=false(is a type, to indicate is a text block)
 //===========================================================
 //-------------Text(//Info//Text is here.)------------------------------------------
 //-addText
@@ -14,19 +14,12 @@ package story;
 //-setEnd
 //===========================================================
 public class StoryBlock {
-	boolean end=false;
-	boolean switcher;
+	int type;
 	String text;
 	int pathA;
 	String stringA;
 	String stringB;
 	int pathB;
-	public boolean getEnd(){
-		return this.end;
-	}
-	public void setEnd(boolean end){
-		this.end=end;
-	}
 	public void addText(String text){
 		this.text=text;
 	}
@@ -36,11 +29,11 @@ public class StoryBlock {
 		this.stringA=a;
 		this.stringB=b;
 	}
-	public void setType(boolean type){
-		this.switcher=type;
+	public void setType(int type){
+		this.type=type;
 	}
-	public boolean getType(){
-		return switcher;
+	public int getType(){
+		return type;
 	}
 	public String getText(){
 		return text;
