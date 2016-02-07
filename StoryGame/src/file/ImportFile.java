@@ -6,14 +6,18 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+import configuration.Config;
+
 public class ImportFile {
 	int numberOfLines;
 	BufferedReader br=null;
+	boolean Progress=false;
 	public ImportFile(String nameOfFile){
 		loadStory(nameOfFile);
 	}
 	//Default numberOfLine is 0, at the start of the game.
 	public void loadStory(String nameOfFile){
+		Progress=nameOfFile.contains(Config.nameOfProgress);
 		try {
 			FileInputStream fs= new FileInputStream(nameOfFile);
 			br = new BufferedReader(new InputStreamReader(fs));
@@ -25,8 +29,7 @@ public class ImportFile {
 		String line;
 		try {
 			while((line=br.readLine())!=null){
-				//System.out.println(counter+", A:"+line);
-				Switching.switcher(line);
+				Switching.switcher(Progress,line);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();					//cannot read line.

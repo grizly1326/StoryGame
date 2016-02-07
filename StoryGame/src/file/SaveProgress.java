@@ -3,6 +3,7 @@ package file;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 
+import configuration.Config;
 import story.StoryArray;
 
 public class SaveProgress {
@@ -14,6 +15,9 @@ public class SaveProgress {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();			//cannot create a save file.
 		}
+		//insert save settings here.
+		saveSettings(out);
+		//=========================
 		for(int i=0;i<StoryArray.getProgressSize();i++){
 			if(StoryArray.getProgressBlock(i).getType()==4){
 				//END
@@ -29,5 +33,8 @@ public class SaveProgress {
 			}
 		}
 		out.close();
+	}
+	private static void saveSettings(PrintWriter out){
+		out.println("//Settings//progress="+Config.progress);
 	}
 }
