@@ -1,7 +1,7 @@
 package configuration;
 
 import java.util.ArrayList;
-
+//The Identificators, can be imported with the story, in "//Settings//".
 //=========================================================================================
 //0=info(pager-like information,.....)//this is not in use right now.
 //1=split(selects a few parameter in the text that are splitted by a special character).

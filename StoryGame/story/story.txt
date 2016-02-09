@@ -1,7 +1,8 @@
-//Settings//
 //Info//hello my name is Daniel.
 //Info//hello, what is your name.
 //Info//is it, Daniel as well?
 //Info//Are you done.
-//Split//From here/-/5/-/Or from Here/-/10
+//Split//Repeat/-/3/-/Continue/-/5
+//Info//Ok lets continue.
+//Info//But its almost over :D .
 //End//
