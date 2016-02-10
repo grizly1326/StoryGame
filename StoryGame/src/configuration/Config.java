@@ -7,6 +7,5 @@ public class Config {
 	public static String nameOfProgress="Progress";
 	public static int progress=0;
 	public static JFrame frame=new JFrame();
-	
-	//There can be only two choices, in future updates may be more than 2.
+	public static int sleep=10;
 }

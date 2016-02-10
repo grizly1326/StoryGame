@@ -5,7 +5,7 @@ import file.ImportFile;
 
 public class Initilize {
 	public static void init(){
-		Identificators ident= new Identificators();				//fills the array.
+		Identificators ident= new Identificators();								//fills the array.
 		try{
 			ImportFile progress= new ImportFile(Config.nameOfStory+Config.nameOfProgress+".txt");			
 			progress.importStory();												//imports the Progress to ProgressArray

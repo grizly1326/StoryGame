@@ -15,14 +15,14 @@ public class ImportFile {
 	public ImportFile(String nameOfFile){
 		loadStory(nameOfFile);
 	}
-	//Default numberOfLine is 0, at the start of the game.
+	//Default numberOfLine is 0, at the start of the game, if there is not any progress.
 	public void loadStory(String nameOfFile){
 		Progress=nameOfFile.contains(Config.nameOfProgress);
 		try {
 			FileInputStream fs= new FileInputStream(nameOfFile);
 			br = new BufferedReader(new InputStreamReader(fs));
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();			//cannot make a BufferedReader on this file. /ERROR/
+			e.printStackTrace();										//cannot make a BufferedReader on this file. /ERROR/
 		}
 	}
 	public void importStory(){
@@ -32,7 +32,7 @@ public class ImportFile {
 				Switching.switcher(Progress,line);
 			}
 		} catch (IOException e) {
-			e.printStackTrace();					//cannot read line.
+			e.printStackTrace();										//cannot read line.
 		}
 	}
 
