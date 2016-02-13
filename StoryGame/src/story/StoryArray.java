@@ -23,8 +23,8 @@ public class StoryArray {
 	public static StoryBlock getProgressBlock(int index){
 		return progress.get(index);
 	}
-	public static void removeBlockInList(int index){
-		list.remove(index);
+	public static void removeBlockInProgress(int index){
+		progress.remove(index);
 	}
 
 }

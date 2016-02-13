@@ -16,8 +16,8 @@ public class WriteStory {
 		//story telling starts here
 		if(firstTime){
 			printProgress();																	//import progress of the story.
+			//StoryArray.removeBlockInProgress(StoryArray.getProgressSize());
 			firstTime=false;
-			
 		}											
 		while(StoryArray.getListBlock(Config.progress).getType()!=4){							//checks if the story ended.("END").
 			if(!run)break;
@@ -102,7 +102,6 @@ public class WriteStory {
 				printText(i);																		//GUI Text.
 				i++;
 				numberOfBlocks++;
-				
 			}
 			if(StoryArray.getListBlock(i).getType()==1){
 				System.out.println(StoryArray.getListBlock(i).getStringA()+" : "+StoryArray.getListBlock(i).getStringB());		//delete after creating GUI.
