@@ -12,8 +12,6 @@ public class Test {
 		Initilize.init();														//imports the whole story to an Array.
 		createPanel();
 		WriteStory.looper(Config.progress);										//the "0" will be replaced with number of line in the ProgressArray.
-		System.out.println("Game Saved.");										//saves the game at every split, or at the end.
-		SaveProgress.save();													//add this to every iteration of choosing.
 	}
 	private static void createPanel(){
 		Config.frame.setBounds(100, 100, 500, 500);

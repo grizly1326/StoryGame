@@ -2,11 +2,14 @@ package display;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
+
 import story.StoryArray;
 import configuration.Config;
+import file.SaveProgress;
 
 public class WriteStory {
 	static int numberOfBlocks=0;
@@ -15,16 +18,16 @@ public class WriteStory {
 	public static void looper(int index){
 		//story telling starts here
 		if(firstTime){
-			printProgress();																	//import progress of the story.
+			printProgress(StoryArray.getProgressSize());																//import progress of the story.
 			//StoryArray.removeBlockInProgress(StoryArray.getProgressSize());
 			firstTime=false;
 		}											
 		while(StoryArray.getListBlock(Config.progress).getType()!=4){							//checks if the story ended.("END").
 			if(!run)break;
 			chooseBlock(index);
+			SaveProgress.save();													//add this to every iteration of choosing.
+			System.out.println("Game Saved.");										//saves the game at every split, or at the end.
 		}
-		StoryArray.addToProgress(StoryArray.getListBlock(Config.progress));						//saves progress, to progress Array(end).
-		//wana restart the story?
 	}
 	private static void chooseBlock(int index){
 		if(StoryArray.getListBlock(Config.progress+1).getType()==4){							//checks if the story ended.("END").
@@ -47,8 +50,7 @@ public class WriteStory {
 			numberOfBlocks++;
 			run=false;
 			return;																				//returns to the previous method.
-		}
-		
+		}		
 	}
 	private static void printText(int index){
 		JLabel text=new JLabel();
@@ -91,25 +93,23 @@ public class WriteStory {
 			e.printStackTrace();
 		}
 	}
-	private static void printProgress(){
-		for(int i=0;i<Config.progress;i++){
-			if(StoryArray.getListBlock(i+1).getType()==4){							//checks if the story ended.("END").
-				i++;
-				looper(i);															//exits the game, because there is an End, in the Story.
+	private static void printProgress(int progress){
+		for(int i=0;i<progress;i++){
+			if(StoryArray.getProgressBlock(i+1).getType()==4){							//checks if the story ended.("END").
+				return;															//exits the game, because there is an End, in the Story.
 			}
-			while(StoryArray.getListBlock(i).getType()==2){
+			while(StoryArray.getProgressBlock(i).getType()==2){							//chceks if its a text.
 				System.out.println(StoryArray.getListBlock(i).getText());				//This will be displayed in some-kind of label(GUI).
-				printText(i);																		//GUI Text.
+				printText(i);															//GUI Text
 				i++;
 				numberOfBlocks++;
 			}
-			if(StoryArray.getListBlock(i).getType()==1){
-				System.out.println(StoryArray.getListBlock(i).getStringA()+" : "+StoryArray.getListBlock(i).getStringB());		//delete after creating GUI.
-				printSelecting(i);																	//GUI Selecting.
+			if(StoryArray.getProgressBlock(i).getType()==1){								//checks if its a split.
+				System.out.println(StoryArray.getProgressBlock(i).getStringA()+" : "+StoryArray.getProgressBlock(Config.progress).getStringB());		//delete after creating GUI.
+				printSelecting(i);													//GUI Selecting.
 				numberOfBlocks++;
-				run=false;
-				return;																				//returns to the previous method.
-			}
+				run=false;																			//returns to the previous method.
+			}	
 		}
 	}
 }

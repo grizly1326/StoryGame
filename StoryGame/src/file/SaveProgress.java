@@ -21,7 +21,7 @@ public class SaveProgress {
 		for(int i=0;i<StoryArray.getProgressSize();i++){
 			if(StoryArray.getProgressBlock(i).getType()==4){
 				//END
-				out.println("//END//");
+				out.println("//End//");
 			}
 			if(StoryArray.getProgressBlock(i).getType()==2){
 				//text
