@@ -14,5 +14,6 @@ public class Initilize {
 		}
 		ImportFile story= new ImportFile(Config.nameOfStory+".txt");
 		story.importStory();
+		story.closereader();
 	}
 }

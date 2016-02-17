@@ -35,5 +35,12 @@ public class ImportFile {
 			e.printStackTrace();										//cannot read line.
 		}
 	}
-
+	public void closereader(){
+		try {
+			br.close();
+		} catch (IOException e) {
+			System.out.println("ERROR: cannot close the reader.");
+			e.printStackTrace();
+		}
+	}
 }

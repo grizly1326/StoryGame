@@ -2,6 +2,12 @@ package display;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.nio.file.AccessDeniedException;
+import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -17,9 +23,15 @@ public class WriteStory {
 	static boolean firstTime=true;
 	public static void looper(int index){
 		//story telling starts here
-		if(firstTime){
+		if(StoryArray.getListBlock(Config.progress).getType()==4){
+			System.out.println("Wana restart the program and start over?");
+			//restart button
+			//delete progress and call this function again.
+			restart();
+			run=false;
+		}
+		if(firstTime&&run){
 			printProgress(StoryArray.getProgressSize());																//import progress of the story.
-			//StoryArray.removeBlockInProgress(StoryArray.getProgressSize());
 			firstTime=false;
 		}											
 		while(StoryArray.getListBlock(Config.progress).getType()!=4){							//checks if the story ended.("END").
@@ -30,10 +42,6 @@ public class WriteStory {
 		}
 	}
 	private static void chooseBlock(int index){
-		if(StoryArray.getListBlock(Config.progress+1).getType()==4){							//checks if the story ended.("END").
-			Config.progress++;
-			looper(Config.progress);															//exits the game, because there is an End, in the Story.
-		}
 		while(StoryArray.getListBlock(Config.progress).getType()==2){
 			StoryArray.addToProgress(StoryArray.getListBlock(Config.progress));					//saves progress, to progress Array(text).
 			System.out.println(StoryArray.getListBlock(Config.progress).getText());				//This will be displayed in some-kind of label(GUI).
@@ -50,7 +58,10 @@ public class WriteStory {
 			numberOfBlocks++;
 			run=false;
 			return;																				//returns to the previous method.
-		}		
+		}
+		if(StoryArray.getListBlock(Config.progress).getType()==4){							//checks if the story ended.("END").
+			StoryArray.addToProgress(StoryArray.getListBlock(Config.progress));
+		}
 	}
 	private static void printText(int index){
 		JLabel text=new JLabel();
@@ -79,7 +90,8 @@ public class WriteStory {
 					if((((JButton)e.getSource()).getText()).equals(StoryArray.getProgressBlock(index).getStringA()))Config.progress=StoryArray.getListBlock(index).getPathA();
 					if((((JButton)e.getSource()).getText()).equals(StoryArray.getProgressBlock(index).getStringB()))Config.progress=StoryArray.getListBlock(index).getPathB();
 					run=true;
-					looper(index);
+					System.out.println("Destination: "+Config.progress);
+					looper(Config.progress);
 				}
 				
 			});
@@ -98,10 +110,9 @@ public class WriteStory {
 			if(StoryArray.getProgressBlock(i+1).getType()==4){							//checks if the story ended.("END").
 				return;															//exits the game, because there is an End, in the Story.
 			}
-			while(StoryArray.getProgressBlock(i).getType()==2){							//chceks if its a text.
+			if(StoryArray.getProgressBlock(i).getType()==2){							//chceks if its a text.
 				System.out.println(StoryArray.getListBlock(i).getText());				//This will be displayed in some-kind of label(GUI).
 				printText(i);															//GUI Text
-				i++;
 				numberOfBlocks++;
 			}
 			if(StoryArray.getProgressBlock(i).getType()==1){								//checks if its a split.
@@ -111,5 +122,27 @@ public class WriteStory {
 				run=false;																			//returns to the previous method.
 			}	
 		}
+	}
+	private static void restart(){
+		JButton restart=new JButton();
+		restart.setHorizontalAlignment(SwingConstants.CENTER);
+		restart.setVisible(true);
+		restart.setBounds(10, numberOfBlocks*25, 460, 25);
+		restart.setText("RESTART");
+		Config.frame.add(restart);
+		
+		restart.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				System.out.println(Paths.get(Config.nameOfStory+Config.nameOfProgress));
+				try {
+				    Files.delete(Paths.get(Config.nameOfStory+Config.nameOfProgress+".txt"));
+				} catch (NoSuchFileException x) {
+				    System.err.format("%s: no such" + " file or directory%n",Config.nameOfStory+Config.nameOfProgress);
+				}catch(IOException e){
+					System.out.println("ERROR: "+e);
+				}
+			}
+		});
 	}
 }
