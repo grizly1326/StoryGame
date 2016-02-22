@@ -11,7 +11,7 @@ public class Test {
 	public static void main(String[] args) {
 		Initilize.init();														//imports the whole story to an Array.
 		createPanel();
-		WriteStory.looper(Config.progress);										//the "0" will be replaced with number of line in the ProgressArray.
+		WriteStory.looper();										//the "0" will be replaced with number of line in the ProgressArray.
 	}
 	private static void createPanel(){
 		Config.frame.setBounds(100, 100, 500, 500);

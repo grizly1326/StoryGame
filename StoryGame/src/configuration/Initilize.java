@@ -9,6 +9,7 @@ public class Initilize {
 		try{
 			ImportFile progress= new ImportFile(Config.nameOfStory+Config.nameOfProgress+".txt");			
 			progress.importStory();												//imports the Progress to ProgressArray
+			progress.closereader();
 		}catch(Exception e){
 			System.out.println("There isnt any progress");						//add some debug in GUI.
 		}

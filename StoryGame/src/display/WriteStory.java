@@ -3,10 +3,8 @@ package display;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.nio.file.AccessDeniedException;
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import javax.swing.JButton;
@@ -21,27 +19,27 @@ public class WriteStory {
 	static int numberOfBlocks=0;
 	static boolean run=true;
 	static boolean firstTime=true;
-	public static void looper(int index){
+	public static void looper(){
 		//story telling starts here
+		System.out.println("NEW STORY-------------------------");
 		if(StoryArray.getListBlock(Config.progress).getType()==4){
 			System.out.println("Wana restart the program and start over?");
-			//restart button
-			//delete progress and call this function again.
 			restart();
 			run=false;
 		}
 		if(firstTime&&run){
+			System.out.println("Import STORY.");
 			printProgress(StoryArray.getProgressSize());																//import progress of the story.
 			firstTime=false;
 		}											
 		while(StoryArray.getListBlock(Config.progress).getType()!=4){							//checks if the story ended.("END").
 			if(!run)break;
-			chooseBlock(index);
+			chooseBlock();
 			SaveProgress.save();													//add this to every iteration of choosing.
 			System.out.println("Game Saved.");										//saves the game at every split, or at the end.
 		}
 	}
-	private static void chooseBlock(int index){
+	private static void chooseBlock(){
 		while(StoryArray.getListBlock(Config.progress).getType()==2){
 			StoryArray.addToProgress(StoryArray.getListBlock(Config.progress));					//saves progress, to progress Array(text).
 			System.out.println(StoryArray.getListBlock(Config.progress).getText());				//This will be displayed in some-kind of label(GUI).
@@ -61,6 +59,7 @@ public class WriteStory {
 		}
 		if(StoryArray.getListBlock(Config.progress).getType()==4){							//checks if the story ended.("END").
 			StoryArray.addToProgress(StoryArray.getListBlock(Config.progress));
+			restart();
 		}
 	}
 	private static void printText(int index){
@@ -91,7 +90,7 @@ public class WriteStory {
 					if((((JButton)e.getSource()).getText()).equals(StoryArray.getProgressBlock(index).getStringB()))Config.progress=StoryArray.getListBlock(index).getPathB();
 					run=true;
 					System.out.println("Destination: "+Config.progress);
-					looper(Config.progress);
+					looper();
 				}
 				
 			});
@@ -107,7 +106,7 @@ public class WriteStory {
 	}
 	private static void printProgress(int progress){
 		for(int i=0;i<progress;i++){
-			if(StoryArray.getProgressBlock(i+1).getType()==4){							//checks if the story ended.("END").
+			if(StoryArray.getProgressBlock(i).getType()==4){							//checks if the story ended.("END").
 				return;															//exits the game, because there is an End, in the Story.
 			}
 			if(StoryArray.getProgressBlock(i).getType()==2){							//chceks if its a text.
@@ -134,14 +133,18 @@ public class WriteStory {
 		restart.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				System.out.println(Paths.get(Config.nameOfStory+Config.nameOfProgress));
 				try {
 				    Files.delete(Paths.get(Config.nameOfStory+Config.nameOfProgress+".txt"));
+				    System.out.println(Paths.get(Config.nameOfStory+Config.nameOfProgress)+": DELETED.");			//make this into GUI Label or something like that.
 				} catch (NoSuchFileException x) {
 				    System.err.format("%s: no such" + " file or directory%n",Config.nameOfStory+Config.nameOfProgress);
 				}catch(IOException e){
 					System.out.println("ERROR: "+e);
 				}
+				//restart button.
+				//delete all labels, buttons and reset number of blocks.
+				System.exit(0);
+				
 			}
 		});
 	}
